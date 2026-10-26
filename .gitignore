@@ -1,0 +1,16 @@
+office.json
+.env
+.env.*
+!.env.example
+chats.json
+tarefas.json
+workspace/
+.DS_Store
+node_modules/
+
+# Isometric Interiors (@pixel_Salvaje): a licença proíbe redistribuir os arquivos.
+assets/salvaje/
+
+# Gerados por quem usa: descrições traduzidas das SUAS skills e as SUAS salas/cores.
+descricoes.json
+agents.json

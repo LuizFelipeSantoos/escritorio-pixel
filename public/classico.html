@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escritório Pixel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Escritório Pixel</h1>
+  <div class="ticker" id="ticker">conectando…</div>
+  <span class="conn" id="conn" title="conexão com o servidor"></span>
+</header>
+
+<main class="stage" id="stage">
+  <div class="world" id="world">
+    <canvas id="office"></canvas>
+    <div class="overlay" id="overlay"></div>
+  </div>
+</main>
+
+<aside class="panel" id="panel" hidden>
+  <button class="close" id="close" aria-label="Fechar painel">✕</button>
+  <div class="panel-head">
+    <canvas id="portrait" width="12" height="13"></canvas>
+    <div>
+      <h2 id="p-name"></h2>
+      <div class="cargo" id="p-cargo"></div>
+      <span class="pill" id="p-status"></span>
+    </div>
+  </div>
+  <p class="desc" id="p-desc"></p>
+
+  <section id="p-skill">
+    <label for="p-input">Pedir algo</label>
+    <textarea id="p-input" rows="3" placeholder="O que você quer que essa skill faça?"></textarea>
+    <div class="row">
+      <button id="p-run" class="btn primary">Trabalhar</button>
+      <button id="p-stop" class="btn">Parar</button>
+    </div>
+    <div id="p-result-wrap" hidden>
+      <div class="row between"><label>Resultado</label><button id="p-copy" class="btn small">Copiar</button></div>
+      <pre id="p-result"></pre>
+    </div>
+  </section>
+
+  <section id="p-harvey" hidden>
+    <div class="stats" id="h-stats"></div>
+    <div class="row">
+      <button id="h-start" class="btn primary">Ligar</button>
+      <button id="h-stop" class="btn">Desligar</button>
+      <button id="h-dash" class="btn">Dashboard ↗</button>
+    </div>
+    <p class="hint">E-mails só saem depois que você aprova no Outbox do dashboard.</p>
+  </section>
+
+  <label>Atividade</label>
+  <ol class="log" id="p-log"></ol>
+</aside>
+
+<script src="sprites.js"></script>
+<script src="office.js"></script>
+</body>
+</html>

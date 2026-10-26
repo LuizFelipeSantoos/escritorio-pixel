@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escritório Pixel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gather/gather.css?v=barra2">
+</head>
+<body class="side-open">
+<canvas id="world"></canvas>
+
+<div class="hud">
+  <div class="brand"><span class="logo">EP</span><div><b>Escritório Pixel</b><small><span id="here">Corredor</span> · <span id="busy">…</span></small></div></div>
+  <span id="conn" class="conn" title="Conexão com o servidor"></span>
+</div>
+<nav id="rooms" class="room-bar" aria-label="Salas"></nav>
+
+<div id="prox" class="prox" hidden>
+  <canvas id="prox-face" width="40" height="40"></canvas>
+  <div><b id="prox-name"></b><small id="prox-cargo"></small></div>
+  <button id="prox-talk" class="primary">Conversar <kbd>E</kbd></button>
+</div>
+
+<aside class="side">
+  <section class="resumo-view">
+    <header>
+      <button id="resumo-back" class="icon" aria-label="Voltar">‹</button>
+      <b id="resumo-title">Resumo</b>
+    </header>
+    <div id="resumo-list" class="resumo-list"></div>
+    <div id="resumo-actions" class="resumo-actions" hidden>
+      <button id="resumo-meet" class="primary">Reunir na sala</button>
+    </div>
+  </section>
+
+  <section class="people-view">
+    <header class="people-head">
+      <div class="people-title"><b>No escritório</b><span class="count" id="count">0</span></div>
+      <input id="people-filter" type="search" placeholder="Buscar pessoa" autocomplete="off" aria-label="Buscar pessoa">
+    </header>
+    <div id="people" class="people"></div>
+    <div class="cursor-tasks" id="cursor-drawer">
+      <button type="button" id="cursor-toggle" class="drawer-toggle">
+        <span>Tarefas do Cursor</span>
+        <small id="cursor-count">0</small>
+      </button>
+      <p class="drawer-hint">Arraste uma tarefa para o chat.</p>
+      <div id="cursor-tasks" class="cards"></div>
+    </div>
+  </section>
+
+  <section class="team-view" data-drop="team">
+    <header class="chat-head">
+      <button id="team-back" class="icon" aria-label="Voltar para a lista">‹</button>
+      <div class="who"><b>Sala de Reunião</b><small>Bate-papo em equipe</small></div>
+      <button id="team-stop" class="icon" title="Encerrar reunião" aria-label="Encerrar reunião">×</button>
+    </header>
+    <div id="team-people" class="team-people"></div>
+    <div id="team-log" class="messages"></div>
+    <div id="team-att" class="att-tray" hidden></div>
+    <footer class="composer">
+      <textarea id="team-input" rows="1" placeholder="Fala com a equipe…"></textarea>
+      <button id="team-seat" class="primary">Colocar na sala</button>
+      <button id="team-send" class="primary" hidden aria-label="Enviar">➤</button>
+    </footer>
+  </section>
+
+  <section class="chat-view" data-drop="input">
+    <header class="chat-head">
+      <button id="back" class="icon" aria-label="Voltar para a lista">‹</button>
+      <canvas id="chat-face" width="40" height="40"></canvas>
+      <div class="who"><b id="chat-name"></b><small id="chat-cargo"></small><span id="chat-status" class="status"></span></div>
+      <button id="goto" class="icon" title="Ir até a mesa" aria-label="Ir até o agente">⌖</button>
+      <button id="reset" class="icon" title="Nova conversa" aria-label="Começar nova conversa">↺</button>
+    </header>
+    <div id="harvey-actions" class="harvey" hidden>
+      <div class="lights">
+        <span id="h-agent" class="light"><i></i> Agente</span>
+        <span id="h-board" class="light"><i></i> Dashboard</span>
+      </div>
+      <span id="h-nums"></span>
+      <div>
+        <button id="h-start">Ligar</button>
+        <button id="h-stop">Desligar</button>
+        <button id="h-approve">Aprovar os 0 da fila</button>
+        <button id="h-dash">Dashboard ↗</button>
+      </div>
+    </div>
+    <div id="messages" class="messages"></div>
+    <div id="input-att" class="att-tray" hidden></div>
+    <footer class="composer">
+      <textarea id="input" rows="1" placeholder="Escreva uma mensagem…"></textarea>
+      <button id="send" class="primary" aria-label="Enviar">➤</button>
+      <button id="stop" hidden aria-label="Parar">■</button>
+    </footer>
+  </section>
+</aside>
+
+<nav class="bar">
+  <canvas id="own-face" width="36" height="36"></canvas>
+  <div class="me"><b id="me-name">…</b><small><span class="dot ok"></span> Disponível</small></div>
+  <span class="hint" id="hint"><kbd>WASD</kbd> anda · clique na cadeira senta · <kbd>E</kbd> usa o que está na frente</span>
+  <span class="zoom-ctl" id="zoom-ctl">
+    <button id="zoom-out" class="ghost" type="button" title="Diminuir zoom">−</button>
+    <button id="zoom-fit" class="ghost" type="button">Enquadrar</button>
+    <button id="zoom-in" class="ghost" type="button" title="Aumentar zoom">+</button>
+  </span>
+  <button id="iso-toggle" class="ghost">Visão de cima</button>
+  <a class="ghost" href="/classico.html">Clássica</a>
+  <button id="resumo-open" class="ghost">Resumo</button>
+  <button id="meet-open" class="ghost">Reunir</button>
+  <button id="toggle-side" class="ghost">Pessoas</button>
+</nav>
+
+<div id="toast" class="toast" hidden></div>
+
+<div id="iso-tip" hidden><b></b><small></small></div>
+<script type="module" src="gather/app.js?v=vira2"></script>
+</body>
+</html>
